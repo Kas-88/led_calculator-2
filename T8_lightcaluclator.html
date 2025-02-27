@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>T8 LED Lighting Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            text-align: center;
+        }
+        input, select, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h2>T8 LED Lighting Calculator</h2>
+    <label for="spaceType">Select Space Type:</label>
+    <select id="spaceType" onchange="updateLux()">
+        <option value="400">Office / Classroom (400 lx)</option>
+        <option value="200">Warehouse / Storage (200 lx)</option>
+        <option value="700">Retail / Supermarket (700 lx)</option>
+        <option value="800">Workshop / Factory (800 lx)</option>
+        <option value="250">Hospital Room (250 lx)</option>
+        <option value="150">Hallway / Corridor (150 lx)</option>
+        <option value="200">Living Room (200 lx)</option>
+        <option value="400">Kitchen / Dining (400 lx)</option>
+        <option value="400">Bathroom (400 lx)</option>
+        <option value="75">Parking Garage (75 lx)</option>
+    </select>
+    
+    <label for="length">Room Length (m):</label>
+    <input type="number" id="length" placeholder="Enter length">
+    
+    <label for="width">Room Width (m):</label>
+    <input type="number" id="width" placeholder="Enter width">
+    
+    <label for="lumens">T8 LED Lumens per Bulb:</label>
+    <input type="number" id="lumens" value="2000" placeholder="Enter lumens per bulb">
+    
+    <button onclick="calculateBulbs()">Calculate</button>
+    
+    <h3>Results:</h3>
+    <p>Area: <span id="area">0</span> m²</p>
+    <p>Total Lumens Needed: <span id="totalLumens">0</span> lm</p>
+    <p>Number of Bulbs Required: <span id="bulbs">0</span></p>
+    
+    <script>
+        function calculateBulbs() {
+            let length = parseFloat(document.getElementById('length').value) || 0;
+            let width = parseFloat(document.getElementById('width').value) || 0;
+            let lux = parseFloat(document.getElementById('spaceType').value);
+            let lumensPerBulb = parseFloat(document.getElementById('lumens').value) || 2000;
+            
+            let area = length * width;
+            let totalLumens = area * lux;
+            let bulbsRequired = Math.ceil(totalLumens / lumensPerBulb);
+            
+            document.getElementById('area').innerText = area.toFixed(2);
+            document.getElementById('totalLumens').innerText = totalLumens.toFixed(2);
+            document.getElementById('bulbs').innerText = bulbsRequired;
+        }
+    </script>
+</body>
+</html>
